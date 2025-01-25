@@ -1,0 +1,4 @@
+pycryptodome
+PyPDF2
+crypto
+reportlab

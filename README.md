@@ -244,7 +244,7 @@ This repository implements A-AES for encrypting and decrypting PDF files to enab
 3. Update the path to your PDF file:
    - Replace `your_file_path` with the full path to your PDF file in the `main.py` script:
      ```python
-     input_file = "E:/Internship/Testing/AAES_512_768_102.pdf"
+     input_file = "your_file_path"
      ```
 
 ---

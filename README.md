@@ -286,7 +286,7 @@ The script will:
 | **Test Case**                  | **Input File**                          | **File Size** | **Key Size** | **Encryption Time** | **Decryption Time** | **Output**                  |
 |--------------------------------|-----------------------------------------|---------------|--------------|----------------------|----------------------|-----------------------------|
 | **Small PDF**                  | `small.pdf`                             | 500 KB        | 512 bits     | 0.01 seconds         | 0.01 seconds         | Successfully decrypted      |
-| **Medium PDF**                 | `E:/Internship/Testing/AAES_512_768_102.pdf` | 2 MB          | 768 bits     | 0.03 seconds         | 0.03 seconds         | Successfully decrypted      |
+| **Medium PDF**                 | `E:/Internship/Testing/AAES_512_768_1024.pdf` | 2 MB          | 768 bits     | 0.03 seconds         | 0.03 seconds         | Successfully decrypted      |
 | **Large PDF**                  | `large.pdf`                             | 10 MB         | 1024 bits    | 0.12 seconds         | 0.12 seconds         | Successfully decrypted      |
 | **Very Large PDF**             | `very_large.pdf`                        | 50 MB         | 1024 bits    | 0.75 seconds         | 0.77 seconds         | Successfully decrypted      |
 | **Extra Large PDF** (Stress)   | `extra_large.pdf`                       | 100 MB        | 1024 bits    | 1.60 seconds         | 1.63 seconds         | Successfully decrypted      |

@@ -68,7 +68,7 @@ def decrypt_file(file_path, key):
 if __name__ == "__main__":
     # Generate a 512-bit key (64 bytes)
     key = os.urandom(64)
-    input_file = "E:/Internship/Testing/AAES_512_768_102.pdf"
+    input_file = "E:/Internship/Testing/AAES_512_768_1024.pdf"
 
     # Encrypt and decrypt the file
     encrypt_file(input_file, key)

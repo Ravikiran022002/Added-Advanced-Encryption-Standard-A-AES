@@ -65,8 +65,6 @@ def decrypt_file(file_path, key):
 
     print(f"File decrypted successfully: {decrypted_file_path}")
 
-
-# Example usage
 if __name__ == "__main__":
     # Generate a 512-bit key (64 bytes)
     key = os.urandom(64)

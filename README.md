@@ -81,6 +81,124 @@ The Advanced Encryption Standard (AES) is a widely-used symmetric encryption alg
   - Fixed at **128 bits** for all AES variants.
   - The round keys are derived from the main encryption key through a key expansion process.
 ---
+### Rounds in AES
+
+In the Advanced Encryption Standard (AES), each round transforms the state matrix (the internal representation of the data being encrypted) through a series of steps to increase diffusion and security. Let's walk through a single AES round based on the provided diagram.
+
+---
+
+### **1. Input State Matrix**
+- At the beginning of each round, the state matrix is the current 4x4 block of data being processed.
+- The state matrix undergoes a series of transformations in the following order: **SubBytes**, **ShiftRows**, **MixColumns**, and **AddRoundKey**.
+
+---
+
+### **2.Working of the Substitute Bytes Step in AES**
+
+In the **Substitute Bytes** step of AES, each byte in the state matrix is replaced with a new byte based on a substitution table called the **S-box**. The S-box is a 16x16 matrix containing 256 unique values designed for cryptographic security. Each input byte is split into two parts: the upper 4 bits (used as the row index) and the lower 4 bits (used as the column index). Using these indices, the corresponding value from the S-box is fetched and replaces the input byte. This nonlinear substitution step introduces confusion, making it harder for attackers to analyze the cipher. The process is applied independently to every byte in the state matrix.
+
+---
+
+### **3.Working of the Shift Rows Step in AES**
+In the **Shift Rows** step of AES, the rows of the state matrix are shifted cyclically to the left. This operation disrupts the alignment of bytes in each row, adding diffusion to the cipher and making it harder to analyze. 
+
+- **Row 0:** Remains unchanged.
+- **Row 1:** Is shifted one position to the left.
+- **Row 2:** Is shifted two positions to the left.
+- **Row 3:** Is shifted three positions to the left.
+This process does not modify the values of the bytes but rearranges their positions, creating interdependencies between columns for subsequent operations.
+
+---
+
+### **4. MixColumns (Column Mixing)**
+- **Purpose**: Mixes the columns of the state matrix to increase diffusion further.
+- **How it works**:
+  - Each column is treated as a polynomial and multiplied with a fixed **MixColumns matrix** using Galois Field arithmetic.
+  - The transformation involves matrix multiplication, where:
+    - Each byte in the column is replaced with a linear combination of the bytes in the column.
+    - The fixed matrix used is:
+      ```
+      [02 03 01 01]
+      [01 02 03 01]
+      [01 01 02 03]
+      [03 01 01 02]
+      ```
+- **Outcome**: Each column of the state matrix is completely mixed, making it harder to trace back to the original data.
+
+---
+
+### **5. AddRoundKey (Key Addition)**
+- **Purpose**: Adds a round-specific key to the state matrix to incorporate the encryption key.
+- **How it works**:
+  - The round key, derived from the main encryption key, is XORed with the state matrix.
+  - XOR operation ensures that even small changes in the key or plaintext result in significant differences in the ciphertext.
+- **Outcome**: The resulting matrix is ready for the next round of transformations.
+
+---
+
+### **6. Final State Matrix**
+- After completing all four steps, the resulting state matrix is passed to the next AES round.
+- For the final AES round, the **MixColumns** step is omitted to streamline the encryption.
+
+---
+### Summary
+Each round in AES applies a structured combination of substitution, permutation, mixing, and key addition to transform the input data into a highly secure format. The combination of constant and variable inputs ensures both robustness and unpredictability in the encryption process.
+
+### **AES Encryption and Decryption process Working**
+
+The **Advanced Encryption Standard (AES)** involves a series of systematic steps for encrypting plaintext and decrypting ciphertext. The process is divided into **encryption** and **decryption** phases, with specific operations performed in multiple rounds. Below is the detailed working of both phases:
+
+---
+
+#### **Encryption Phase**
+1. **Input**:  
+   The encryption process begins with a 128-bit block of plaintext and a 128-bit key. The plaintext is divided into a 4x4 matrix (called the state), and the key is expanded into multiple round keys using the key expansion algorithm.
+
+2. **Initial AddRoundKey**:  
+   Before any rounds, the plaintext undergoes an initial XOR operation with the first round key. This step ensures that the data is mixed with the key before any transformations.
+
+3. **Rounds (1 to 9)**:  
+   Each round includes the following transformations:
+   - **Substitute Bytes**: Every byte in the state is substituted using a fixed **S-Box** (Substitution Box), introducing non-linearity and confusion in the data.
+   - **Shift Rows**: The rows of the state matrix are shifted cyclically. The first row remains unchanged, the second row shifts left by one byte, the third by two, and the fourth by three. This step provides diffusion.
+   - **Mix Columns**: Columns of the state matrix are transformed using a matrix multiplication over a finite field (GF(2^8)), further diffusing the data. (Note: This step is omitted in the final round.)
+   - **AddRoundKey**: A round key derived from the key expansion is XORed with the state matrix, integrating the key into the encryption process.
+
+4. **Final Round (Round 10)**:  
+   The final round is similar to previous rounds but skips the **Mix Columns** step. It consists of Substitute Bytes, Shift Rows, and AddRoundKey operations. The output after the final round is the encrypted **ciphertext**.
+
+---
+
+#### **Decryption Phase**
+1. **Input**:  
+   The ciphertext and the same encryption key are inputs for the decryption process. The decryption steps reverse the transformations performed during encryption.
+
+2. **Initial AddRoundKey**:  
+   The ciphertext undergoes an XOR operation with the last round key from the key expansion, reversing the initial mixing step from encryption.
+
+3. **Rounds (10 to 1)**:  
+   Each round involves the following reverse transformations:
+   - **Inverse Shift Rows**: The rows of the state matrix are shifted back to their original positions.
+   - **Inverse Substitute Bytes**: Each byte in the state is substituted using the inverse S-Box, reversing the non-linearity introduced during encryption.
+   - **Inverse Mix Columns**: Columns are transformed back using the inverse of the Mix Columns transformation. (This step is omitted in the first round of decryption.)
+   - **AddRoundKey**: A round key is XORed with the state matrix, reversing the mixing of data and the key.
+
+4. **Final Round**:  
+   The last round reverses the initial AddRoundKey transformation and completes the decryption process. The output is the original **plaintext**.
+
+---
+
+#### **Key Expansion**  
+The key used in AES is expanded into multiple round keys through a process involving:
+- Rotating bytes in the key.
+- Substituting bytes using the S-Box.
+- XORing with constants derived from the Rijndael key schedule.
+
+This ensures that each round uses a unique key, enhancing security.
+
+---
+
+
 
 # **Added Advanced Encryption Standard (A-AES)**
 

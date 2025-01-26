@@ -142,8 +142,7 @@ This process does not modify the values of the bytes but rearranges their positi
 - For the final AES round, the **MixColumns** step is omitted to streamline the encryption.
 
 ---
-### Summary
-Each round in AES applies a structured combination of substitution, permutation, mixing, and key addition to transform the input data into a highly secure format. The combination of constant and variable inputs ensures both robustness and unpredictability in the encryption process.
+
 
 ### **AES Encryption and Decryption process Working**
 

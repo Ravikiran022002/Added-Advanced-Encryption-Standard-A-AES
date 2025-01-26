@@ -254,7 +254,7 @@ This repository implements A-AES for encrypting and decrypting PDF files to enab
 ### **Encrypt a PDF File**
 To encrypt a file using A-AES:
 ```bash
-python main.py
+python test.py
 ```
 
 The script will:
